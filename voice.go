@@ -76,7 +76,8 @@ type VoiceSpeakingUpdateHandler func(vc *VoiceConnection, vs *VoiceSpeakingUpdat
 // Speaking sends a speaking notification to Discord over the voice websocket.
 // This must be sent as true prior to sending audio and should be set to false
 // once finished sending audio.
-//  b  : Send true if speaking, false if not.
+//
+//	b  : Send true if speaking, false if not.
 func (v *VoiceConnection) Speaking(b bool) (err error) {
 
 	v.log(LogDebug, "called (%t)", b)
@@ -294,7 +295,7 @@ func (v *VoiceConnection) open() (err error) {
 		if v.sessionID != "" {
 			break
 		}
-		if i > 20 { // only loop for up to 1 second total
+		if i > 200 { // only loop for up to 1 second total
 			return fmt.Errorf("did not receive voice Session ID in time")
 		}
 		time.Sleep(50 * time.Millisecond)
