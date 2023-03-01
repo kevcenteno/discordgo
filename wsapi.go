@@ -695,6 +695,8 @@ func (s *Session) ChannelVoiceJoin(gID, cID string, mute, deaf bool) (voice *Voi
 		return
 	}
 
+	s.log(LogInformational, "ChannelVoiceJoinManual ended")
+
 	// doesn't exactly work perfect yet.. TODO
 	err = voice.waitUntilConnected()
 	if err != nil {
@@ -703,6 +705,7 @@ func (s *Session) ChannelVoiceJoin(gID, cID string, mute, deaf bool) (voice *Voi
 		return
 	}
 
+	s.log(LogInformational, "ended")
 	return
 }
 
