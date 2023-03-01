@@ -735,8 +735,10 @@ func (s *Session) ChannelVoiceJoinManual(gID, cID string, mute, deaf bool) (err 
 // onVoiceStateUpdate handles Voice State Update events on the data websocket.
 func (s *Session) onVoiceStateUpdate(st *VoiceStateUpdate) {
 
+	s.log(LogInformational, "called")
 	// If we don't have a connection for the channel, don't bother
 	if st.ChannelID == "" {
+		s.log(LogInformational, "channelID is empty")
 		return
 	}
 
@@ -745,11 +747,13 @@ func (s *Session) onVoiceStateUpdate(st *VoiceStateUpdate) {
 	voice, exists := s.VoiceConnections[st.GuildID]
 	s.RUnlock()
 	if !exists {
+		s.log(LogInformational, "voice connection exists")
 		return
 	}
 
 	// We only care about events that are about us.
 	if s.State.User.ID != st.UserID {
+		s.log(LogInformational, "event doesn't apply to us")
 		return
 	}
 
@@ -776,6 +780,7 @@ func (s *Session) onVoiceServerUpdate(st *VoiceServerUpdate) {
 
 	// If no VoiceConnection exists, just skip this
 	if !exists {
+		s.log(LogInformational, "no voice connection exists")
 		return
 	}
 
