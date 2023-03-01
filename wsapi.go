@@ -691,6 +691,7 @@ func (s *Session) ChannelVoiceJoin(gID, cID string, mute, deaf bool) (voice *Voi
 
 	err = s.ChannelVoiceJoinManual(gID, cID, mute, deaf)
 	if err != nil {
+		s.log(LogWarning, "voicejoinmanual error, %s", err)
 		return
 	}
 
