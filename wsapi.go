@@ -730,6 +730,7 @@ func (s *Session) ChannelVoiceJoinManual(gID, cID string, mute, deaf bool) (err 
 	s.wsMutex.Lock()
 	err = s.wsConn.WriteJSON(data)
 	s.wsMutex.Unlock()
+	s.log(LogInformational, "wsMutex unlock")
 	return
 }
 
